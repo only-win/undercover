@@ -1,0 +1,12 @@
+{
+    "name": "@only-win/types",
+    "exports": {
+        "./game": "./src/game/index.ts"
+    },
+    "dependencies": {
+        "react": "^19.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19"
+    }
+}

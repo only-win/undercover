@@ -39,6 +39,16 @@ importers:
         specifier: ^5
         version: 5.7.2
 
+  packages/types:
+    dependencies:
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+    devDependencies:
+      '@types/react':
+        specifier: ^19
+        version: 19.0.1
+
 packages:
 
   '@alloc/quick-lru@5.2.0':
