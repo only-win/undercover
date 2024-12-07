@@ -14,5 +14,6 @@ const io = new Server(httpServer, {
 });
 
 // TODO: Handle events and add logic here
+// io.on("connection", (socket) => ...)
 
 httpServer.listen({ port: 3001 }, () => console.log("Server is running on port 3001"));
