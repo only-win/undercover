@@ -1,5 +1,9 @@
 import type { GameState } from "./use-game.type"
+import type { Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 import { useEffect, useState } from "react"
+
+let socket: Socket | null = null;
 
 export const useGame = (gameId: string) => {
 	const [state, setState] = useState<GameState>({
@@ -8,10 +12,17 @@ export const useGame = (gameId: string) => {
 	});
 
 	useEffect(() => {
-		// TODO: Socket connection and logic
+		if (!socket) socket = io("http://localhost:3001");
+
+		return () => {
+			socket?.disconnect();
+			socket = null;
+		}
 	}, [gameId]);
 
+
 	return {
-		round: state.round
+		round: state.round,
+		phase: state.phase
 	}
 }
