@@ -1,16 +1,16 @@
-import { Component } from "@only-win/types/ui";
-import { icons } from "lucide-react";
+import type { Component } from "@only-win/types/ui";
+import type { LucideProps } from "lucide-react";
+import dynamic from "next/dynamic";
+import icons from "lucide-react/dynamicIconImports";
 
 export type IconName = keyof typeof icons;
 
-export type IconProps = {
+export type IconProps = LucideProps & {
   name: IconName;
-  color?: string;
-  size?: number;
 }
 
-export const Icon: Component<IconProps> = ({ name, color, size }) => {
-  const LucideIcon = icons[name];
+export const Icon: Component<IconProps> = ({ name, ...props }) => {
+  const LucideIcon = dynamic(icons[name]);
 
-  return <LucideIcon size={size} color={color} />;
+  return <LucideIcon {...props} />;
 }
