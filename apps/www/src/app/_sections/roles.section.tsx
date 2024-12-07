@@ -1,4 +1,5 @@
 import type { Component } from "@only-win/types/ui";
+import type { Role } from "@/lib/config/roles";
 import { cn } from "@/lib/utils";
 import { roles } from "@/lib/config/roles";
 import { underdog } from "@/lib/utils/fonts";
@@ -16,13 +17,25 @@ export const RolesSection: Component = () => {
 
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-20 mt-28">
           {roles.map((role) => (
-            <div key={role.name} className="relative bg-[#0B0B0F] p-5 rounded-md mx-auto">
-              <span className={cn("text-3xl absolute -top-8 left-0 right-0 bg-[#0B0B0F] w-fit py-4 px-8 mx-auto", underdog.className)}>{role.name}</span>
-              <Image src={role.image} alt={`${role.name} image`} height={500} width={500} className="h-96 w-auto object-contain" />
-            </div>
+            <RoleCard key={role.name} {...role} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+export const RoleCard: Component<Role> = ({ name, image, description }) => {
+  return (
+    <div key={name} className="relative bg-[#0B0B0F] p-5 rounded-md mx-auto group">
+      <span className={cn("text-3xl absolute z-20 -top-8 left-0 right-0 bg-[#0B0B0F] w-fit py-4 px-8 mx-auto", underdog.className)}>{name}</span>
+      <Image src={image} alt={`${name} image`} height={500} width={500} className="h-96 -z-10 w-auto object-contain" />
+
+      <div className="absolute bg-[#0B0B0F] z-10 p-6 pt-16 w-full h-full top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <p className="text-justify">
+          {description}
+        </p>
+      </div>
+    </div>
   );
 }
