@@ -1,10 +1,10 @@
-import { Component } from "@only-win/types/ui";
 import "./globals.css";
 
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
-import { cn } from "@/lib";
-import { inter } from "@/lib/fonts";
+import type { Component } from "@only-win/types/ui";
+import { cn } from "@/lib/utils";
+import { inter } from "@/lib/utils/fonts";
 
 export const metadata: Metadata = {
   title: "UnderCover"

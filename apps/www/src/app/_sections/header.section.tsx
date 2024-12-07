@@ -1,4 +1,4 @@
-import { cn } from "@/lib";
+import { cn } from "@/lib/utils";
 import { Component } from "@only-win/types/ui";
 import Image from "next/image";
 
