@@ -21,7 +21,7 @@ export const HowToPlaySection: Component = () => {
                 </div>
                 <div className="space-y-4 ml-4">
                   {info.description.map((desc, i) => (
-                    <p key={i}>{desc}</p>
+                    <p key={i} className="text-justify">{desc}</p>
                   ))}
                 </div>
               </div>
