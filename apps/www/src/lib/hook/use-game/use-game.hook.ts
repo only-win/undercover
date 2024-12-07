@@ -1,5 +1,5 @@
+import type { GameState } from "./use-game.type"
 import { useEffect, useState } from "react"
-import { GameState } from "./use-game.type"
 
 export const useGame = (gameId: string) => {
 	const [state, setState] = useState<GameState>({
