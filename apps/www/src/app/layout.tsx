@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const RootLayout: Component<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "dark antialiased min-h-screen")}>
+      <body className={cn(inter.className, "dark bg-[#0F0F12] antialiased min-h-screen")}>
         {children}
       </body>
     </html>
