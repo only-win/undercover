@@ -11,7 +11,7 @@ export const RolesSection: Component = () => {
       <div className="container">
         <div>
           <h2 className="text-center text-5xl">Rôles</h2>
-          <p className="text-center text-xl font-thin mt-5">Découvrez les différents rôles disponibles dans le jeu</p>
+          <p className="text-center text-2xl font-thin mt-4">Découvrez les différents rôles disponibles dans le jeu</p>
         </div>
 
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-20 mt-28">

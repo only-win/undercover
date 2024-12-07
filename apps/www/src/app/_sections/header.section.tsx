@@ -5,7 +5,7 @@ import Image from "next/image";
 export const HeaderSection: Component = () => {
   return (
     <section className="relative h-[40rem]">
-      <Image src="/background.png" alt="Background image" fill className="z-50 object-cover" />
+      <Image src="/background.png" alt="Background image" className="z-50 object-cover" fill />
       <span className="absolute w-full h-full left-0 top-0 bg-black/85 z-50" />
 
 
