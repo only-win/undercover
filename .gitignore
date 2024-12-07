@@ -1,0 +1,32 @@
+# Idea IDE:
+**/.idea/
+
+# Package lock (except for PNPM):
+**/yarn.lock
+**/package-lock.json
+**/bun.lockb
+
+# Packages:
+**/node_modules
+
+# Environment variables and secrets files:
+**/.env*
+**/.bucket.json
+
+# Builds:
+**/.next
+**/modules/**/dist
+**/build
+**/dist
+
+# TS:
+**/*.tsbuildinfo
+
+# Playwright:
+**/test-results/
+**/playwright-report/
+**/playwright/.cache/
+
+# Storybook
+**/storybook-static
+*storybook.log
