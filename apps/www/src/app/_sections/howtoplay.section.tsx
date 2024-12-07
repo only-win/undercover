@@ -1,7 +1,7 @@
+import type { Component } from "@only-win/types/ui";
 import { cn } from "@/lib/utils";
 import { informations } from "@/lib/config/howtoplay";
 import { underdog } from "@/lib/utils/fonts";
-import { Component } from "@only-win/types/ui";
 
 export const HowToPlaySection: Component = () => {
   return (

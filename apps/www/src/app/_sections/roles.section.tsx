@@ -1,7 +1,7 @@
+import type { Component } from "@only-win/types/ui";
 import { cn } from "@/lib/utils";
 import { roles } from "@/lib/config/roles";
 import { underdog } from "@/lib/utils/fonts";
-import { Component } from "@only-win/types/ui";
 import Image from "next/image";
 
 export const RolesSection: Component = () => {

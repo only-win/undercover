@@ -1,7 +1,7 @@
 "use client";
 
+import type { Component } from "@only-win/types/ui";
 import { useGame } from "@/lib/hook/use-game";
-import { Component } from "@only-win/types/ui";
 import { useParams } from "next/navigation";
 
 const GamePage: Component = () => {
