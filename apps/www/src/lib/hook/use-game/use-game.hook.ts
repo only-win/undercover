@@ -3,7 +3,8 @@ import { GameState } from "./use-game.type"
 
 export const useGame = (gameId: string) => {
     const [state, setState] = useState<GameState>({
-        round: 0
+        round: 0,
+        phase: "waiting"
     });
 
     useEffect(() => {
