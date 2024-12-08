@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { profilePicture } from "@/lib/utils/profile";
 import type { Component } from "@only-win/types/ui";
 import Image from "next/image";
+import { TimerCard } from "./timer-card";
 
 type Message = {
   name: string;
@@ -45,6 +46,8 @@ export const Chat: Component = () => {
             ))}
           </div>
         </ScrollArea>
+
+        <TimerCard type="voting" />
 
         <div className="flex flex-row gap-2 p-2 bg-[#0A090A]">
           <Input placeholder="Message" className="border-0 bg-transparent" />
