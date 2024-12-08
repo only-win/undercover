@@ -9,13 +9,13 @@ import { useEffect, useState } from "react";
 import { profilePicture } from "@/lib/utils/profile";
 import { RefreshCcw } from "lucide-react";
 
-const players = ["Giselle", "Liam", "Ella", "Noah", "Ava", "Oliver", "Isabella"];
+const players = ["Giselle", "Liam", "Ella"];
 
 const LobbyVue = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    setName(generateName([], 2));
+    setName(generateName("en", 2));
   }, []);
 
   return (
@@ -24,7 +24,7 @@ const LobbyVue = () => {
         Waiting for players
       </h1>
 
-      <div className="flex flex-row p-4 gap-2 h-[45rem] w-[80rem]">
+      <div className="flex flex-row p-4 gap-2 h-[calc(100vh-10rem)] w-[calc(100vw-10rem)]">
         <Chat />
         
         <div className="flex flex-col gap-2 w-8/12">
@@ -61,10 +61,10 @@ const LobbyVue = () => {
                 </div>
               ))}
 
-              {players.length < 8 && (
+              {players.length < 4 && (
                 <div className="flex flex-col bg-[#0a090a60] items-center justify-center">
                   <p className="text-center text-xs text-white/90 mb-1.5">
-                    Waiting for {8 - players.length} players
+                    Waiting for {4 - players.length} players
                   </p>
                 </div>
               )}
