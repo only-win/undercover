@@ -1,54 +1,36 @@
 "use client";
 
 import { Card, CardHeader } from "@/lib/component/ui/card";
-import { generateName } from "just-random-names";
 import { Chat } from "./_components/chat";
-import { Input } from "@/lib/component/ui/input";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { profilePicture } from "@/lib/utils/profile";
-import { RefreshCcw } from "lucide-react";
+import { profilePicture, rolePicture } from "@/lib/utils/profile";
+import { useParams } from "next/navigation";
+import { useGame } from "@/lib/hook/use-game";
 
-const players = ["Giselle", "Liam", "Ella"];
+const players = ["Giselle", "Liam", "Ella", "Player4"];
 
 const PlayingVue = () => {
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    setName(generateName("en", 2));
-  }, []);
+	const { gameId } = useParams<{ gameId: string }>();
+  const { gameInfo } = useGame(gameId);
 
   return (
     <div className="flex justify-center items-center h-screen flex flex-col gap-3">
-      <h1 className="text-4xl font-bold text-[#BFD6DC]">
-        Waiting for players
-      </h1>
-
       <div className="flex flex-row p-4 gap-2 h-[calc(100vh-10rem)] w-[calc(100vw-10rem)]">
         <Chat />
         
         <div className="flex flex-col gap-2 w-8/12">
           <Card>
             <CardHeader className="bg-[#141314] flex flex-row justify-between">
-              <div className="flex flex-col gap-2 w-3/6">
-                <p className="text-left font-normal text-[#E0E0E0]">Choisissez un nom d'utilisateur pendant le jeu</p>
-                <div className="relative">
-                  <Input
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="border-0 bg-[#1F1E1F] text-[#E0E0E0] p-2"
-                  />
-
-                  <RefreshCcw
-                    className="absolute right-2 top-2 text-[#E0E0E0] cursor-pointer"
-                    size={20}
-                    onClick={() => setName(generateName([], 2))}
-                  />
+              <div className="flex flex-col gap-2">
+                <p className="text-left text-sm font-normal text-[#E0E0E0]">Votre mot est:</p>
+                <div className="bg-[#1f1e1f] text-lg text-[#E0E0E0] p-2">
+                  {gameInfo.globalWord}
                 </div>
               </div>
 
-              <><Image src={profilePicture(name)} width={64} height={64} alt="avatar" /></>
+              <div className="bg-[#1f1e1f]">
+                <Image src={rolePicture("civil")} width={64} height={64} alt="avatar" />
+              </div>
             </CardHeader>
           </Card>
 

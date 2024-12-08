@@ -1,5 +1,6 @@
 export type GamePhase = "waiting" | "playing" | "gameover";
 export type RoundPhase = "writing" | "voting";
+export type Role = "civil" | "undercover" | "mr-white";
 
 export type RoundState = {
 	phase: RoundPhase;
@@ -26,7 +27,7 @@ export type GameState = {
 
 		players: Record<string, {
 			name: string;
-			role: "civil" | "undercover" | "mr-white";
+			role: Role;
 		}>;
 
 		roles: {

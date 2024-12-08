@@ -11,7 +11,6 @@ type TimerCardProps = {
 
 export const TimerCard: Component<TimerCardProps> = ({ type }) => {
 	const { gameId } = useParams<{ gameId: string }>();
-
   const { phase, rounds, round, timer } = useGame(gameId);
 
   if (phase !== "playing") return <></>;

@@ -11,15 +11,21 @@ export const useGame = (gameId: string) => {
 		phase: "playing",
 
 		gameInfo: {
-			globalWord: "Maison",
-			uncoverWord: "Batiment"
+			globalWord: "Brosse à dent",
+			uncoverWord: "Dentifrice",
 		},
 
 		gameConfig: {
 			votingTime: 0,
 			writingTime: 0,
 
-			players: {},
+			players: {
+				TestingPlayer: {
+					name: "TestingPlayer",
+					role: "civil"
+				}
+			},
+
 			roles: {
 				civilian: 0,
 				uncover: 0,
@@ -28,7 +34,15 @@ export const useGame = (gameId: string) => {
 			}
 		},
 
-		rounds: [],
+		rounds: [
+			{
+				phase: "writing",
+				activePlayer: "TestingPlayer",
+				players: {
+					TestingPlayer: { word: "Maison", vote: null }
+				}
+			}
+		],
 		timer: 0
 	});
 
@@ -46,7 +60,9 @@ export const useGame = (gameId: string) => {
 		round: state.round,
 		phase: state.phase,
 
+		gameInfo: state.gameInfo,
 		gameConfig: state.gameConfig,
+
 		rounds: state.rounds,
 		timer: state.timer
 	}
