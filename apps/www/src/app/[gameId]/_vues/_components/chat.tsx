@@ -21,7 +21,7 @@ export const Chat: Component = () => {
   return (
     <Card className="flex-1">
       <CardHeader className="bg-[#1f1e1f] p-2">
-        <p className="text-sm text-[#E0E0E0]">Onglet de discussion</p>
+        <p className="text-sm text-[#E0E0E0]">Chat tab</p>
       </CardHeader>
 
       <CardContent className="p-0">
@@ -32,8 +32,8 @@ export const Chat: Component = () => {
                 "bg-[#0F0E0F]": message.type === "system",
               }
             )}>
-              <Image src={"https://api.dicebear.com/9.x/pixel-art/png?seed=" + message.name} width={16} height={16} alt="avatar" />
-              
+              <Image src={"https://api.dicebear.com/9.x/pixel-art/png?seed=" + message.name} width={25} height={25} alt="avatar" />
+
               <div className="flex flex-row gap-2">
                 {message.type === "system" && <strong>{message.name}</strong>}
                 <div>{message.message}</div>
@@ -42,7 +42,7 @@ export const Chat: Component = () => {
           ))}
 
           <div className="flex flex-row gap-2 p-2 bg-[#0A090A]">
-            <Input placeholder="Message" className="border-0 " />
+            <Input placeholder="Message" className="border-0 bg-transparent" />
           </div>
         </div>
       </CardContent>
