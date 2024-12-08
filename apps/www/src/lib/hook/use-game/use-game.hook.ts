@@ -9,7 +9,12 @@ export const useGame = (gameId: string) => {
 	const [state, setState] = useState<GameState>({
 		round: 0,
 		phase: "playing",
-		
+
+		gameInfo: {
+			globalWord: "Maison",
+			uncoverWord: "Batiment"
+		},
+
 		gameConfig: {
 			votingTime: 0,
 			writingTime: 0,
@@ -39,6 +44,10 @@ export const useGame = (gameId: string) => {
 
 	return {
 		round: state.round,
-		phase: state.phase
+		phase: state.phase,
+
+		gameConfig: state.gameConfig,
+		rounds: state.rounds,
+		timer: state.timer
 	}
 }

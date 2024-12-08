@@ -15,13 +15,18 @@ export type GameState = {
 	round: number;
 	phase: GamePhase;
 
+	gameInfo: {
+		globalWord: string;
+		uncoverWord: string;
+	};
+
 	gameConfig: {
 		votingTime: number;
 		writingTime: number;
 
 		players: Record<string, {
 			name: string;
-			role: "civilian" | "uncover" | "mrWhite";
+			role: "civil" | "undercover" | "mr-white";
 		}>;
 
 		roles: {
