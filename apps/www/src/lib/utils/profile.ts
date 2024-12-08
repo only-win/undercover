@@ -1,0 +1,1 @@
+export const profilePicture = (name: string) => `https://api.dicebear.com/9.x/dylan/png?seed=${name}&backgroundColor=transparent`;

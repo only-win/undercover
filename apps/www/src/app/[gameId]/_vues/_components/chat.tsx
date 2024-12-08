@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/lib/component/ui/card";
 import { Input } from "@/lib/component/ui/input";
 import { cn } from "@/lib/utils";
+import { profilePicture } from "@/lib/utils/profile";
 import type { Component } from "@only-win/types/ui";
 import Image from "next/image";
 
@@ -32,7 +33,7 @@ export const Chat: Component = () => {
                 "bg-[#0F0E0F]": message.type === "system",
               }
             )}>
-              <Image src={"https://api.dicebear.com/9.x/pixel-art/png?seed=" + message.name} width={25} height={25} alt="avatar" />
+              <Image src={profilePicture(message.name)} width={25} height={25} alt="avatar" />
 
               <div className="flex flex-row gap-2">
                 {message.type === "system" && <strong>{message.name}</strong>}
