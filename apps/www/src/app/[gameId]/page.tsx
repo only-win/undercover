@@ -7,10 +7,16 @@ import LobbyVue from "./_vues/lobby.vue";
 
 const GamePage: Component = () => {
 	const { gameId } = useParams<{ gameId: string }>();
-	const { round } = useGame(gameId);
+	const { round, phase } = useGame(gameId);
+
+	if (phase == "waiting") return (
+		<LobbyVue />
+	);
 
 	return (
-		<LobbyVue />
+		<p>
+			Game {gameId} is in round {round} and phase {phase}
+		</p>
 	);
 }
 
