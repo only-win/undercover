@@ -36,7 +36,7 @@ export const useGame = (gameId: string) => {
 
 		rounds: [
 			{
-				phase: "writing",
+				phase: "voting",
 				activePlayer: "TestingPlayer",
 				players: {
 					TestingPlayer: { word: "Maison", vote: null }

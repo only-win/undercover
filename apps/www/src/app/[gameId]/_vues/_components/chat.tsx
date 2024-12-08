@@ -47,7 +47,7 @@ export const Chat: Component = () => {
           </div>
         </ScrollArea>
 
-        <TimerCard type="voting" />
+        {/* <TimerCard /> */}
 
         <div className="flex flex-row gap-2 p-2 bg-[#0A090A]">
           <Input placeholder="Message" className="border-0 bg-transparent" />
