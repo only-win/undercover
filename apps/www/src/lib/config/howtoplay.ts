@@ -6,7 +6,7 @@ export type Information = {
 export const informations: Information[] = [
   {
     place: 1,
-    description: ["Créer ou rejoins une parite, puis attends que l'équipe soit au complet. Une fois le minimum de joueurs atteint, le jeu peut être lancé ! Autrement, la partie se lancera automatiquement après un certain délai. 🕒"]
+    description: ["Créer ou rejoins une partie, puis attends que l'équipe soit au complet. Une fois le minimum de joueurs atteint, le jeu peut être lancé ! Autrement, la partie se lancera automatiquement après un certain délai. 🕒"]
   },
   {
     place: 2,
