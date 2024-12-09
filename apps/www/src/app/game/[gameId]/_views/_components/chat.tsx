@@ -1,3 +1,5 @@
+"use client";
+
 import type { Component } from "@only-win/types/ui";
 import { Card, CardContent, CardHeader } from "@/lib/component/ui/card";
 import { Input } from "@/lib/component/ui/input";
@@ -5,6 +7,9 @@ import { ScrollArea } from "@/lib/component/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { profilePicture } from "@/lib/utils/profile";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/db/supabase";
+import { useParams } from "next/navigation";
 
 type Message = {
   name: string;
@@ -12,14 +17,33 @@ type Message = {
   type: "player" | "system";
 };
 
-const messages: Message[] = [
-  { name: "Player4", message: "has joined the game", type: "system" },
-  { name: "Player1", message: "Hello", type: "player" },
-  { name: "Player2", message: "Hi", type: "player" },
-  { name: "Player3", message: "Hey", type: "player" },
-];
 
 export const Chat: Component = () => {
+  const { gameId } = useParams<{ gameId: string }>();
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const channel = supabase.channel(gameId, {
+    config: {
+      broadcast: { self: true }
+    }
+  });
+
+  useEffect(() => {
+    const updates = channel
+      .on<Message>("broadcast", { event: "message" }, ({ payload }) => {
+        const { name, message, type } = payload;
+        setMessages((prev) => [...prev, { name, message, type }]);
+      })
+      .subscribe();
+
+    setInterval(() => {
+      channel.send({ type: "broadcast", event: "message", payload: { name: "RomainSav", message: "has joined the game", type: "system" } });
+    }, 1000 * 5);
+
+    return () => {
+      updates.unsubscribe();
+    }
+  }, []);
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="bg-[#1f1e1f] p-2">
@@ -32,8 +56,8 @@ export const Chat: Component = () => {
             {messages.map((message, index) => (
               <div key={index} className={cn(
                 "flex flex-row items-center gap-2 p-2", {
-                  "bg-[#0F0E0F]": message.type === "system",
-                }
+                "bg-[#0F0E0F]": message.type === "system",
+              }
               )}>
                 <Image src={profilePicture(message.name)} width={25} height={25} alt="avatar" />
 

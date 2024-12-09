@@ -5,10 +5,15 @@ import { useGame } from "@/lib/hook/use-game";
 import { useParams } from "next/navigation";
 import LobbyView from "./_views/lobby.view";
 import PlayingView from "./_views/playing.view";
+import { useEffect } from "react";
 
 const GamePage: Component = () => {
 	const { gameId } = useParams<{ gameId: string }>();
 	const { round, phase } = useGame(gameId);
+
+	useEffect(() => {
+		
+	}, [])
 
 	if (phase == "waiting") return <LobbyView />
 	if (phase == "playing") return <PlayingView />
