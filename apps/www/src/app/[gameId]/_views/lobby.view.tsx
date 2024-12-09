@@ -11,7 +11,7 @@ import Image from "next/image";
 
 const players = ["Giselle", "Liam", "Ella"];
 
-const LobbyVue = () => {
+const LobbyView = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -76,4 +76,4 @@ const LobbyVue = () => {
   );
 };
 
-export default LobbyVue;
+export default LobbyView;

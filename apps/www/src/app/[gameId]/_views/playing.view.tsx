@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const players = ["Giselle", "Liam", "Ella", "Player4"];
 
-const PlayingVue = () => {
+const PlayingView = () => {
 	const { gameId } = useParams<{ gameId: string }>();
   const { gameInfo } = useGame(gameId);
 
@@ -58,4 +58,4 @@ const PlayingVue = () => {
   );
 };
 
-export default PlayingVue;
+export default PlayingView;

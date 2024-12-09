@@ -8,7 +8,7 @@ let socket: Socket | null = null;
 export const useGame = (gameId: string) => {
 	const [state, setState] = useState<GameState>({
 		round: 0,
-		phase: "playing",
+		phase: "waiting",
 
 		gameInfo: {
 			globalWord: "Brosse à dent",
