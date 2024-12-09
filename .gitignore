@@ -10,7 +10,7 @@
 **/node_modules
 
 # Environment variables and secrets files:
-**/.env*
+**/.env
 **/.bucket.json
 
 # Builds:
