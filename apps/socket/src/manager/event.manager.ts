@@ -2,7 +2,7 @@ import type { Server, Socket } from "socket.io";
 import { readdirSync } from "fs";
 import { join } from "path";
 
-export type EventExecute<P = unknown> = (io: Server, socket: Socket, props: P) => void;
+export type EventExecute<P = unknown> = (io: Server, socket: Socket, props: P, callback: (response: any) => void) => void;
 
 export const load = (io: Server, socket: Socket) => {
   const events = readdirSync(join(__dirname, "..", "event"));
@@ -19,6 +19,6 @@ export const load = (io: Server, socket: Socket) => {
       throw new Error(`Event ${event} does not have an execute function`);
     }
 
-    socket.on(name, (props: unknown) => execute(io, socket, props))
+    socket.on(name, (props: unknown, callback: (response: any) => void) => execute(io, socket, props, callback))
   }
 }

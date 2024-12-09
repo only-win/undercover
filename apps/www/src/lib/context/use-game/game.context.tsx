@@ -1,10 +1,11 @@
 import type { Component } from "@only-win/types/ui";
 import type { Socket } from "socket.io-client";
 import type { PropsWithChildren } from "react";
+import type { GameContextProps } from "./game.type";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-const GameContext = createContext(undefined);
+const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
   // TODO: Implement game management
@@ -22,8 +23,19 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
     }
   }, []);
 
+  const create = (): boolean => {
+    if (!socket) return false;
+
+    socket.emit("create-game", {}, (respone: any) => {
+      console.log(respone);
+    });
+    return true;
+  }
+
   return (
-    <GameContext.Provider value={undefined}>
+    <GameContext.Provider value={{
+      create
+    }}>
       {children}
     </GameContext.Provider>
   );
