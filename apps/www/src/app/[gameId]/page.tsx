@@ -3,8 +3,8 @@
 import type { Component } from "@only-win/types/ui";
 import { useGame } from "@/lib/hook/use-game";
 import { useParams } from "next/navigation";
-import LobbyVue from "./_vues/lobby.vue";
-import PlayingVue from "./_vues/playing.vue";
+import LobbyVue from "./_views/lobby.view";
+import PlayingVue from "./_views/playing.view";
 
 const GamePage: Component = () => {
 	const { gameId } = useParams<{ gameId: string }>();

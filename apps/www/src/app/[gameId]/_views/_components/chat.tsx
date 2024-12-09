@@ -1,11 +1,10 @@
+import type { Component } from "@only-win/types/ui";
 import { Card, CardContent, CardHeader } from "@/lib/component/ui/card";
 import { Input } from "@/lib/component/ui/input";
 import { ScrollArea } from "@/lib/component/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { profilePicture } from "@/lib/utils/profile";
-import type { Component } from "@only-win/types/ui";
 import Image from "next/image";
-import { TimerCard } from "./timer-card";
 
 type Message = {
   name: string;

@@ -2,10 +2,10 @@
 
 import { Card, CardHeader } from "@/lib/component/ui/card";
 import { Chat } from "./_components/chat";
-import Image from "next/image";
 import { profilePicture, rolePicture } from "@/lib/utils/profile";
 import { useParams } from "next/navigation";
 import { useGame } from "@/lib/hook/use-game";
+import Image from "next/image";
 
 const players = ["Giselle", "Liam", "Ella", "Player4"];
 
@@ -14,7 +14,7 @@ const PlayingVue = () => {
   const { gameInfo } = useGame(gameId);
 
   return (
-    <div className="flex justify-center items-center h-screen flex flex-col gap-3">
+    <div className="flex justify-center items-center h-screen flex-col gap-3">
       <div className="flex flex-row p-4 gap-2 h-[calc(100vh-10rem)] w-[calc(100vw-10rem)]">
         <Chat />
         
@@ -35,7 +35,7 @@ const PlayingVue = () => {
           </Card>
 
           <Card className="h-full">
-            <div className="flex grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-2">
               {players.map((player, index) => (
                 <div className="flex flex-col bg-[#0A090A] items-center" key={index}>
                   <Image src={profilePicture(player)} width={96} height={96} alt="avatar" className="p-2" />

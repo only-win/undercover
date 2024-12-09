@@ -1,12 +1,11 @@
 "use client";
 
-import { useGame } from "@/lib/hook/use-game";
 import type { Component } from "@only-win/types/ui";
+import { useGame } from "@/lib/hook/use-game";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export const TimerCard: Component = () => {
-	const { gameId } = useParams<{ gameId: string }>();
+  const { gameId } = useParams<{ gameId: string }>();
   const { phase, rounds, round, timer } = useGame(gameId);
 
   if (phase !== "playing") return <></>;
@@ -27,5 +26,5 @@ export const TimerCard: Component = () => {
         </p>
       </div>
     </div>
- );
+  );
 }
