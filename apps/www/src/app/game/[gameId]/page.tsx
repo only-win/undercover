@@ -3,9 +3,9 @@
 import type { Component } from "@only-win/types/ui";
 import { useGame } from "@/lib/hook/use-game";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import LobbyView from "./_views/lobby.view";
 import PlayingView from "./_views/playing.view";
-import { useEffect } from "react";
 
 const GamePage: Component = () => {
 	const { gameId } = useParams<{ gameId: string }>();

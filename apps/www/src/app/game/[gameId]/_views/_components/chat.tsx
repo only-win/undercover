@@ -45,7 +45,7 @@ export const Chat: Component = () => {
     }
   }, []);
   return (
-    <Card className="flex flex-col h-full">
+    <Card className="flex flex-col h-full flex-1">
       <CardHeader className="bg-[#1f1e1f] p-2">
         <p className="text-sm text-[#E0E0E0]">Chat tab</p>
       </CardHeader>
