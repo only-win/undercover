@@ -1,0 +1,22 @@
+{
+  "name": "@only-win/db",
+  "scripts": {
+    "generate": "npx prisma generate",
+    "postinstall": "pnpm run generate"
+  },
+  "exports": {
+    "./prisma": "./src/prisma/index.ts",
+    "./supabase": "./src/supabase/index.ts"
+  },
+  "devDependencies": {
+    "@prisma/client": "6.0.1",
+    "@types/node": "^20",
+    "prisma": "^6.0.1"
+  },
+  "peerDependencies": {
+    "@prisma/client": ">5.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.3"
+  }
+}

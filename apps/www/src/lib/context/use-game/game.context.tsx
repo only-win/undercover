@@ -4,19 +4,18 @@ import type { PropsWithChildren } from "react";
 import type { GameContextProps } from "./game.type";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { useRouter } from "next/navigation";
 
 const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
-  // TODO: Implement game management
   const [socket, setSocket] = useState<Socket | null>(null);
   const [game, setGame] = useState({});
+  const router = useRouter();
 
   useEffect(() => {
     const connection = io("http://localhost:3001");
     setSocket(connection);
-
-    // Handle events
 
     return () => {
       connection.disconnect();
@@ -26,9 +25,11 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
   const create = (): boolean => {
     if (!socket) return false;
 
-    socket.emit("create-game", {}, (respone: any) => {
-      console.log(respone);
+    socket.emit("create-game", {}, ({ game }: any) => {
+      localStorage.setItem("playerId", game.host.id);
+      router.push(`/game/${game.code}`);
     });
+
     return true;
   }
 

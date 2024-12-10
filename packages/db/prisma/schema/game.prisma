@@ -1,0 +1,38 @@
+enum GameStatus {
+  WAITING
+  IN_PROGRESS
+  FINISHED
+}
+
+model Game {
+  id           String     @id @default(uuid())
+  code         String     @unique
+  status       GameStatus @default(WAITING)
+  currentRound Int        @default(0)
+  //
+  host         Player?    @relation("HostRelation", fields: [hostId], references: [id])
+  hostId       String?    @unique
+  //
+  players      Player[]   @relation("Game")
+  //
+  createdAt    DateTime   @default(now())
+}
+
+enum Role {
+  CITIZEN
+  UNDERCOVER
+  MR_WHITE
+}
+
+model Player {
+  id         String   @id @default(uuid())
+  name       String?
+  role       Role?
+  //
+  game       Game?    @relation("Game", fields: [gameId], references: [id])
+  gameId     String?
+  //
+  hostedGame Game?    @relation("HostRelation")
+  //
+  createdAt  DateTime @default(now())
+}

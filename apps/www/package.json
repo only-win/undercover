@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@only-win/db": "workspace:*",
     "@only-win/types": "workspace:*",
+    "@prisma/client": "6.0.1",
     "@radix-ui/react-scroll-area": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "^2.47.3",

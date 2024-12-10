@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { profilePicture } from "@/lib/utils/profile";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/db/supabase";
+import { supabase } from "@only-win/db/supabase";
 import { useParams } from "next/navigation";
 
 type Message = {
@@ -22,26 +22,30 @@ export const Chat: Component = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const channel = supabase.channel(gameId, {
-    config: {
-      broadcast: { self: true }
-    }
-  });
+
 
   useEffect(() => {
-    const updates = channel
+    const channel = supabase
+      .channel(gameId, {
+        config: {
+          broadcast: { self: true }
+        }
+      })
       .on<Message>("broadcast", { event: "message" }, ({ payload }) => {
         const { name, message, type } = payload;
         setMessages((prev) => [...prev, { name, message, type }]);
       })
+      .on("postgres_changes", {
+        event: "*",
+        schema: "public",
+        table: "Player"
+      }, (payload) => {
+        console.log(payload.new);
+      })
       .subscribe();
 
-    setInterval(() => {
-      channel.send({ type: "broadcast", event: "message", payload: { name: "RomainSav", message: "has joined the game", type: "system" } });
-    }, 1000 * 5);
-
     return () => {
-      updates.unsubscribe();
+      channel.unsubscribe();
     }
   }, []);
   return (
