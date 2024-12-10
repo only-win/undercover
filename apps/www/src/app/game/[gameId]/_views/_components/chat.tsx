@@ -23,7 +23,6 @@ export const Chat: Component = () => {
   const [messages, setMessages] = useState<Message[]>([]);
 
 
-
   useEffect(() => {
     const channel = supabase
       .channel(gameId, {
@@ -40,7 +39,7 @@ export const Chat: Component = () => {
         schema: "public",
         table: "Player"
       }, (payload) => {
-        console.log(payload.new);
+        console.log(payload);
       })
       .subscribe();
 
