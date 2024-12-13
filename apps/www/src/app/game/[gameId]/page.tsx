@@ -1,19 +1,14 @@
 "use client";
 
 import type { Component } from "@only-win/types/ui";
-import { useGame } from "@/lib/hook/use-game";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
 import LobbyView from "./_views/lobby.view";
 import PlayingView from "./_views/playing.view";
+import { useGameContext } from "@/lib/context/use-game";
 
 const GamePage: Component = () => {
 	const { gameId } = useParams<{ gameId: string }>();
-	const { round, phase } = useGame(gameId);
-
-	useEffect(() => {
-		
-	}, [])
+	const { round, phase } = useGameContext();
 
 	if (phase == "waiting") return <LobbyView />
 	if (phase == "playing") return <PlayingView />

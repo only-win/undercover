@@ -10,3 +10,5 @@ export enum StartGameResponse {
     NotHost = "not-host",
     UnexpectedError = "unexpected-error"
 }
+
+export * from "./event";

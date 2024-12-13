@@ -5,6 +5,8 @@
         "./ui": "./src/ui/index.ts"
     },
     "dependencies": {
+        "@only-win/types": "workspace:*",
+        "@prisma/client": "6.0.1",
         "react": "^19.0.0"
     },
     "devDependencies": {

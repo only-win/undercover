@@ -7,11 +7,11 @@ import { Input } from "@/lib/component/ui/input";
 import { useEffect, useState } from "react";
 import { profilePicture } from "@/lib/utils/profile";
 import { RefreshCcw } from "lucide-react";
+import { useGameContext } from "@/lib/context/use-game";
 import Image from "next/image";
 
-const players = ["Giselle", "Liam", "Ella"];
-
 const LobbyView = () => {
+  const { players, self } = useGameContext();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const LobbyView = () => {
 
       <div className="flex flex-row p-4 gap-2 h-[calc(100vh-10rem)] w-[calc(100vw-10rem)]">
         <Chat />
-        
+
         <div className="flex flex-col gap-2 w-8/12">
           <Card>
             <CardHeader className="bg-[#141314] flex flex-row justify-between">
@@ -56,8 +56,8 @@ const LobbyView = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-2">
               {players.map((player, index) => (
                 <div className="flex flex-col bg-[#0A090A] items-center" key={index}>
-                  <Image src={profilePicture(player)} width={96} height={96} alt="avatar" className="p-2" />
-                  <p className="text-center text-xs text-white/90 mb-1.5">{player}</p>
+                  <Image src={profilePicture(player.name)} width={96} height={96} alt="avatar" className="p-2" />
+                  <p className="text-center text-xs text-white/90 mb-1.5">{player.name}</p>
                 </div>
               ))}
 
