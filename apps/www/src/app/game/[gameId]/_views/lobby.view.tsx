@@ -26,7 +26,7 @@ const LobbyView = () => {
       <div className="flex gap-4 w-full h-[40rem]">
         <Chat self={self} code={code} />
         <div className="p-4 border rounded-md flex-1">
-          <div className="border-b flex items-center gap-4 pb-2">
+          <div className="border-b flex items-center gap-4 pb-4">
             <div className="relative flex-1">
               <Input
                 placeholder="Name"
@@ -41,7 +41,7 @@ const LobbyView = () => {
                 onClick={() => setName(generateName([], 2))}
               />
             </div>
-            <Image src={profilePicture(name)} width={64} height={64} alt="avatar" />
+            <Image src={profilePicture(name)} width={64} height={64} alt="avatar" className="size-10" />
           </div>
 
           <div className="mt-4">
