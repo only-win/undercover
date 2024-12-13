@@ -12,6 +12,7 @@ export type GameState = {
   self: Player | null;
   round: number;
   messages: Message[];
+  hostId: string;
 }
 
 export type Message = {

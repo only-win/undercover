@@ -19,7 +19,8 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
     players: [],
     self: null,
     round: 0,
-    messages: []
+    messages: [],
+    hostId: ""
   });
   const router = useRouter();
 
@@ -31,7 +32,6 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
       const playerId = localStorage.getItem("playerId");
       connection.emit("reconnect-player", { playerId, gameCode: gameId }, (response: ReconnectPlayerResponse) => {
         const { gameId, ...game } = response;
-        console.log(response);
         if (response.error) return;
 
         setGame((prev) => ({
@@ -106,7 +106,8 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
       code: game.code,
       players: game.players,
       self: game.self,
-      messages: game.messages
+      messages: game.messages,
+      hostId: game.hostId
     }}>
       {children}
     </GameContext.Provider>

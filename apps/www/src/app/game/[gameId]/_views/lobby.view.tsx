@@ -9,9 +9,10 @@ import { profilePicture } from "@/lib/utils/profile";
 import { RefreshCcw } from "lucide-react";
 import { useGameContext } from "@/lib/context/use-game";
 import Image from "next/image";
+import { Button } from "@/lib/component/ui/button";
 
 const LobbyView = () => {
-  const { players, self, code } = useGameContext();
+  const { players, self, code, hostId } = useGameContext();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -43,7 +44,28 @@ const LobbyView = () => {
             <Image src={profilePicture(name)} width={64} height={64} alt="avatar" />
           </div>
 
-          <div></div>
+          <div className="mt-4">
+            <div className="grid grid-cols-3 gap-4">
+              {players.map((player) => (
+                <Card key={player.id} className="flex items-center gap-4 p-4">
+                  <Image src={profilePicture(player.name)} width={32} height={32} alt="avatar" />
+                  <CardHeader>{player.name}</CardHeader>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-10">
+              {players.length < 4 ? (
+                <p className="italic text-white/70">{4 - players.length} missing's to start the game</p>
+              ) : (
+                <>
+                  {hostId === self?.id && (
+                    <Button>Start game</Button>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
