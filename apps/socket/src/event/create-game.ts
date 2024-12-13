@@ -30,6 +30,7 @@ export const execute: EventExecute = async (io: Server, socket: Socket, _, callb
 
   return callback({
     code: game.code,
+    gameId: game.id,
     self: player,
     players: [player],
     status: game.status,

@@ -54,6 +54,7 @@ export const execute: EventExecute<ReconnectPlayerProps> = async (io: Server, so
 
   return callback({
     gameId: game.id,
+    code: game.code,
     self: newPlayer,
     players: [...game.players, newPlayer],
     status: game.status,

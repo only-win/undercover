@@ -7,6 +7,7 @@ export type GameContextProps = GameState & {
 
 export type GameState = {
   id: string;
+  code: string;
   players: Player[];
   self: Player | null;
   round: number;

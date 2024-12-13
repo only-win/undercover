@@ -15,6 +15,7 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [game, setGame] = useState<GameState>({
     id: "",
+    code: "",
     players: [],
     self: null,
     round: 0
@@ -50,6 +51,7 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
         table: "Player"
       }, ({ eventType, new: newPlayer, old: oldPlayer }) => {
         if (eventType === "INSERT") {
+          if (newPlayer.id !== game.id) return;
           setGame((prev) => ({
             ...prev,
             players: [...prev.players, newPlayer as Player].filter((player, index, self) =>
@@ -59,10 +61,12 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
         }
 
         if (eventType === "DELETE") {
+          if (oldPlayer.id !== game.id) return;
           setGame((prev) => ({ ...prev, players: prev.players.filter((player) => player.id !== oldPlayer.id) }));
         }
 
         if (eventType === "UPDATE") {
+          if (newPlayer.id !== game.id) return;
           setGame((prev) => ({
             ...prev,
             players: prev.players.map((p) => p.id === newPlayer.id ? newPlayer as Player : p)
@@ -81,7 +85,7 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
     if (!socket) return false;
 
     socket.emit("create-game", {}, (response: any) => {
-      setGame((prev) => ({ ...prev, ...response, id: response.code }));
+      setGame((prev) => ({ ...prev, ...response, id: response.gameId, code: response.gameCode }));
       localStorage.setItem("playerId", response.hostId);
       router.push(`/game/${response.code}`);
     });
@@ -95,6 +99,7 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
       create,
       phase: "waiting",
       round: 0,
+      code: game.code,
       players: game.players,
       self: game.self
     }}>

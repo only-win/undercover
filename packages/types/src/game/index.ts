@@ -1,6 +1,7 @@
 export type Player = {
     id: string;
     name: string;
+    gameId: string;
 }
 
 export enum StartGameResponse {
