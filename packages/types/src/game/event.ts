@@ -8,4 +8,5 @@ export type ReconnectPlayerResponse = {
   status: GameStatus,
   round: number;
   hostId: string;
+  error?: string;
 }

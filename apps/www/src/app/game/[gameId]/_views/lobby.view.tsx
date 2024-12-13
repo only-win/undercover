@@ -15,8 +15,8 @@ const LobbyView = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    setName(generateName("en", 2));
-  }, []);
+    setName(self?.name ?? "");
+  }, [self?.name]);
 
   return (
     <div className="flex justify-center items-center h-screen flex-col gap-3">

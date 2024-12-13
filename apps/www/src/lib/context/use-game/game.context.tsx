@@ -25,15 +25,22 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
     const connection = io("http://localhost:3001");
     setSocket(connection);
 
-    const playerId = localStorage.getItem("playerId");
-    connection.emit("reconnect-player", { playerId, gameCode: gameId }, ({ gameId, ...response }: ReconnectPlayerResponse) => {
-      setGame((prev) => ({
-        ...prev,
-        ...response,
-        id: gameId
-      }));
-      localStorage.setItem("playerId", response.self.id);
-    });
+    if (gameId) {
+
+      const playerId = localStorage.getItem("playerId");
+      connection.emit("reconnect-player", { playerId, gameCode: gameId }, (response: ReconnectPlayerResponse) => {
+        const { gameId, ...game } = response;
+        console.log(response);
+        if (response.error) return;
+
+        setGame((prev) => ({
+          ...prev,
+          ...game,
+          id: gameId
+        }));
+        localStorage.setItem("playerId", response.self.id);
+      });
+    }
 
     const subscription = supabase
       .channel(gameId)
@@ -73,10 +80,10 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
   const create = (): boolean => {
     if (!socket) return false;
 
-    socket.emit("create-game", {}, ({ game }: any) => {
-      setGame((prev) => ({ ...prev, id: game.id }));
-      localStorage.setItem("playerId", game.host.id);
-      router.push(`/game/${game.code}`);
+    socket.emit("create-game", {}, (response: any) => {
+      setGame((prev) => ({ ...prev, ...response, id: response.code }));
+      localStorage.setItem("playerId", response.hostId);
+      router.push(`/game/${response.code}`);
     });
 
     return true;
