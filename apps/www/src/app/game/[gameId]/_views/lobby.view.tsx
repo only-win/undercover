@@ -56,7 +56,7 @@ const LobbyView = () => {
 
             <div className="text-center mt-10">
               {players.length < 4 ? (
-                <p className="italic text-white/70">{4 - players.length} missing's to start the game</p>
+                <p className="italic text-white/70">{4 - players.length} missing players to start the game</p>
               ) : (
                 <>
                   {hostId === self?.id && (

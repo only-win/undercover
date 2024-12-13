@@ -11,11 +11,13 @@ import { Send } from "lucide-react";
 import type { Player } from "@only-win/types/game";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useGameContext, type Message } from "@/lib/context/use-game";
+import { ScrollArea } from "@/lib/component/ui/scroll-area";
 
 
 export const Chat: Component<{ self: Player | null, code: string }> = ({ self, code }) => {
   const [message, setMessage] = useState("");
   const { messages } = useGameContext();
+  const chatRef = useRef<HTMLDivElement | null>(null);
   const channel = useRef<RealtimeChannel | null>(null);
 
   useEffect(() => {
@@ -34,6 +36,10 @@ export const Chat: Component<{ self: Player | null, code: string }> = ({ self, c
       channel.current = null;
     }
   }, []);
+
+  useEffect(() => {
+    chatRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSendMessage = () => {
     if (!message.trim() || !channel.current) return;
@@ -56,7 +62,7 @@ export const Chat: Component<{ self: Player | null, code: string }> = ({ self, c
       </div>
 
       {/* Messages */}
-      <div className="overflow-y-scroll h-full mt-4 flex-1">
+      <ScrollArea className=" h-full mt-4 flex-1">
         {messages.map(({ type, name, message }, index) => (
           <div key={index} className="text-sm py-2">
             <div>
@@ -74,7 +80,8 @@ export const Chat: Component<{ self: Player | null, code: string }> = ({ self, c
             </div>
           </div>
         ))}
-      </div>
+        <div ref={chatRef} />
+      </ScrollArea>
 
       {/* Input et bouton d'envoi */}
       <div className="flex items-center border-t mt-2 pt-2 gap-2">
