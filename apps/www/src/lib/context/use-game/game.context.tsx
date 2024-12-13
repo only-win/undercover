@@ -26,8 +26,12 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
     setSocket(connection);
 
     const playerId = localStorage.getItem("playerId");
-    connection.emit("reconnect-player", { playerId, gameCode: gameId }, (response: ReconnectPlayerResponse) => {
-      setGame((prev) => ({ ...prev, ...response }));
+    connection.emit("reconnect-player", { playerId, gameCode: gameId }, ({ gameId, ...response }: ReconnectPlayerResponse) => {
+      setGame((prev) => ({
+        ...prev,
+        ...response,
+        id: gameId
+      }));
       localStorage.setItem("playerId", response.self.id);
     });
 
@@ -39,7 +43,12 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
         table: "Player"
       }, ({ eventType, new: newPlayer, old: oldPlayer }) => {
         if (eventType === "INSERT") {
-          setGame((prev) => ({ ...prev, players: [...prev.players, newPlayer as Player] }));
+          setGame((prev) => ({
+            ...prev,
+            players: [...prev.players, newPlayer as Player].filter((player, index, self) =>
+              index === self.findIndex((p) => p.id === player.id)
+            )
+          }));
         }
 
         if (eventType === "DELETE") {

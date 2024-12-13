@@ -25,7 +25,14 @@ export const execute: EventExecute<ReconnectPlayerProps> = async (io: Server, so
     });
 
     if (player) {
-      return callback({ self: player, players: game.players });
+      return callback({
+        gameId: game.id,
+        self: player,
+        players: game.players,
+        status: game.status,
+        round: game.currentRound,
+        hostId: game.hostId
+      });
     }
   }
 
