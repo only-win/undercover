@@ -19,61 +19,35 @@ const LobbyView = () => {
   }, [self?.name]);
 
   return (
-    <div className="flex justify-center items-center h-screen flex-col gap-3">
-      <h1 className="text-4xl font-bold text-[#BFD6DC]">
-        Waiting for players
-      </h1>
+    <div className="max-w-7xl flex items-center flex-col justify-center mx-auto space-y-10 mt-16">
+      <h1 className="font-bold text-5xl">Waiting for players</h1>
 
-      <div className="flex flex-row p-4 gap-2 h-[calc(100vh-10rem)] w-[calc(100vw-10rem)]">
-        <Chat />
+      <div className="flex gap-4 w-full h-[40rem]">
+        <Chat self={self} />
+        <div className="p-4 border rounded-md flex-1">
+          <div className="border-b flex items-center gap-4 pb-2">
+            <div className="relative flex-1">
+              <Input
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border-0 bg-[#1F1E1F] text-[#E0E0E0] p-2"
+              />
 
-        <div className="flex flex-col gap-2 w-8/12">
-          <Card>
-            <CardHeader className="bg-[#141314] flex flex-row justify-between">
-              <div className="flex flex-col gap-2 w-3/6">
-                <p className="text-left font-normal text-[#E0E0E0]">Choisissez un nom d'utilisateur pendant le jeu</p>
-                <div className="relative">
-                  <Input
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="border-0 bg-[#1F1E1F] text-[#E0E0E0] p-2"
-                  />
-
-                  <RefreshCcw
-                    className="absolute right-2 top-2 text-[#E0E0E0] cursor-pointer"
-                    size={20}
-                    onClick={() => setName(generateName([], 2))}
-                  />
-                </div>
-              </div>
-
-              <><Image src={profilePicture(name)} width={64} height={64} alt="avatar" /></>
-            </CardHeader>
-          </Card>
-
-          <Card className="h-full">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-2">
-              {players.map((player, index) => (
-                <div className="flex flex-col bg-[#0A090A] items-center" key={index}>
-                  <Image src={profilePicture(player.name)} width={96} height={96} alt="avatar" className="p-2" />
-                  <p className="text-center text-xs text-white/90 mb-1.5">{player.name}</p>
-                </div>
-              ))}
-
-              {players.length < 4 && (
-                <div className="flex flex-col bg-[#0a090a60] items-center justify-center">
-                  <p className="text-center text-xs text-white/90 mb-1.5">
-                    Waiting for {4 - players.length} players
-                  </p>
-                </div>
-              )}
+              <RefreshCcw
+                className="absolute top-1/2 right-2 text-[#E0E0E0] cursor-pointer -translate-y-1/2"
+                size={20}
+                onClick={() => setName(generateName([], 2))}
+              />
             </div>
-          </Card>
+            <Image src={profilePicture(name)} width={64} height={64} alt="avatar" />
+          </div>
+
+          <div></div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default LobbyView;
