@@ -11,7 +11,7 @@ import { useGameContext } from "@/lib/context/use-game";
 import Image from "next/image";
 
 const LobbyView = () => {
-  const { players, self } = useGameContext();
+  const { players, self, code } = useGameContext();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const LobbyView = () => {
       <h1 className="font-bold text-5xl">Waiting for players</h1>
 
       <div className="flex gap-4 w-full h-[40rem]">
-        <Chat self={self} />
+        <Chat self={self} code={code} />
         <div className="p-4 border rounded-md flex-1">
           <div className="border-b flex items-center gap-4 pb-2">
             <div className="relative flex-1">

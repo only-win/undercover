@@ -11,4 +11,11 @@ export type GameState = {
   players: Player[];
   self: Player | null;
   round: number;
+  messages: Message[];
 }
+
+export type Message = {
+  name: string;
+  message: string;
+  type: "player" | "system";
+};

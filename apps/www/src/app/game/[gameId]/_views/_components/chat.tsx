@@ -2,62 +2,49 @@
 
 import type { Component } from "@only-win/types/ui";
 import { profilePicture } from "@/lib/utils/profile";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@only-win/db/supabase";
-import { useParams } from "next/navigation";
 import Image from "next/image";
 import { Input } from "@/lib/component/ui/input";
 import { Button } from "@/lib/component/ui/button";
 import { Send } from "lucide-react";
 import type { Player } from "@only-win/types/game";
+import type { RealtimeChannel } from "@supabase/supabase-js";
+import { useGameContext, type Message } from "@/lib/context/use-game";
 
-type Message = {
-  name: string;
-  message: string;
-  type: "player" | "system";
-};
 
-export const Chat: Component<{ self: Player | null }> = ({ self }) => {
-  const { gameId } = useParams<{ gameId: string }>();
+
+export const Chat: Component<{ self: Player | null, code: string }> = ({ self, code }) => {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { messages } = useGameContext();
+  const channel = useRef<RealtimeChannel | null>(null);
 
   useEffect(() => {
-    const channel = supabase
-      .channel(gameId, {
+    if (!channel.current) {
+      const client = supabase;
+
+      channel.current = client.channel(code, {
         config: {
-          broadcast: { self: true }
+          broadcast: { self: true },
         }
-      })
-      .on<Message>("broadcast", { event: "message" }, ({ payload }) => {
-        const { name, message, type } = payload;
-        setMessages((prev) => [...prev, { name, message, type }]);
-      })
-      .on("postgres_changes", {
-        event: "*",
-        schema: "public",
-        table: "Player"
-      }, (payload) => {
-        console.log(payload);
-      })
-      .subscribe();
+      });
+    }
 
     return () => {
-      channel.unsubscribe();
+      channel.current?.unsubscribe();
+      channel.current = null;
     }
   }, []);
 
   const handleSendMessage = () => {
-    if (!message.trim()) return;
+    if (!message.trim() || !channel.current) return;
     const payload: Message = {
       type: "player",
       name: self?.name ?? "Unknown",
       message
     }
 
-    supabase
-      .channel(gameId)
-      .send({ type: "broadcast", event: "message", payload });
+    channel.current.send({ type: "broadcast", event: "message", payload: payload });
 
     setMessage("");
   }

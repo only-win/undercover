@@ -1,7 +1,7 @@
 import type { Component } from "@only-win/types/ui";
 import type { Socket } from "socket.io-client";
 import type { PropsWithChildren } from "react";
-import type { GameContextProps, GameState } from "./game.type";
+import type { GameContextProps, GameState, Message } from "./game.type";
 import type { Player, ReconnectPlayerResponse } from "@only-win/types/game";
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -15,10 +15,11 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [game, setGame] = useState<GameState>({
     id: "",
-    code: "",
+    code: gameId,
     players: [],
     self: null,
-    round: 0
+    round: 0,
+    messages: []
   });
   const router = useRouter();
 
@@ -27,7 +28,6 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
     setSocket(connection);
 
     if (gameId) {
-
       const playerId = localStorage.getItem("playerId");
       connection.emit("reconnect-player", { playerId, gameCode: gameId }, (response: ReconnectPlayerResponse) => {
         const { gameId, ...game } = response;
@@ -45,6 +45,10 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
 
     const subscription = supabase
       .channel(gameId)
+      .on<Message>("broadcast", { event: "message" }, ({ payload }) => {
+        const { name, message, type } = payload;
+        setGame((prev) => ({ ...prev, messages: [...prev.messages, { name, message, type }] }));
+      })
       .on("postgres_changes", {
         schema: "public",
         event: "*",
@@ -101,7 +105,8 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
       round: 0,
       code: game.code,
       players: game.players,
-      self: game.self
+      self: game.self,
+      messages: game.messages
     }}>
       {children}
     </GameContext.Provider>
