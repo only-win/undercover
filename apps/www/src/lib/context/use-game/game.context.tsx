@@ -54,8 +54,9 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
         event: "*",
         table: "Player"
       }, ({ eventType, new: newPlayer, old: oldPlayer }) => {
+        console.log("Hello from postgres_changes", eventType, newPlayer, oldPlayer);
         if (eventType === "INSERT") {
-          if (newPlayer.id !== game.id) return;
+          // if (newPlayer.id !== game.id) return;
           setGame((prev) => ({
             ...prev,
             players: [...prev.players, newPlayer as Player].filter((player, index, self) =>
@@ -70,7 +71,7 @@ export const GameProvider: Component<PropsWithChildren> = ({ children }) => {
         }
 
         if (eventType === "UPDATE") {
-          if (newPlayer.id !== game.id) return;
+          // if (newPlayer.id !== game.id) return;
           setGame((prev) => ({
             ...prev,
             players: prev.players.map((p) => p.id === newPlayer.id ? newPlayer as Player : p)
