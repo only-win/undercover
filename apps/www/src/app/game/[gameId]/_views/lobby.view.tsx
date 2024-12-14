@@ -10,6 +10,7 @@ import { RefreshCcw } from "lucide-react";
 import { useGameContext } from "@/lib/context/use-game";
 import Image from "next/image";
 import { Button } from "@/lib/component/ui/button";
+import { PlayerCard } from "./_components/player-card";
 
 const LobbyView = () => {
   const { players, self, code, hostId } = useGameContext();
@@ -47,10 +48,11 @@ const LobbyView = () => {
           <div className="mt-4">
             <div className="grid grid-cols-3 gap-4">
               {players.map((player) => (
-                <Card key={player.id} className="flex items-center gap-4 p-4">
-                  <Image src={profilePicture(player.name)} width={32} height={32} alt="avatar" />
-                  <CardHeader>{player.name}</CardHeader>
-                </Card>
+                // <Card key={player.id} className="flex items-center gap-4 p-4">
+                //   <Image src={profilePicture(player.name)} width={32} height={32} alt="avatar" />
+                //   <CardHeader>{player.name}</CardHeader>
+                // </Card>
+                <PlayerCard playerName={player.name} text={"Maison"} self_hasVoted={false} self_needWord={true} isTurn self_isTurnPassed />
               ))}
             </div>
 
