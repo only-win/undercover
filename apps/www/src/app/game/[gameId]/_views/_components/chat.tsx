@@ -13,7 +13,6 @@ import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useGameContext, type Message } from "@/lib/context/use-game";
 import { ScrollArea } from "@/lib/component/ui/scroll-area";
 
-
 export const Chat: Component<{ self: Player | null, code: string }> = ({ self, code }) => {
   const [message, setMessage] = useState("");
   const { messages } = useGameContext();
@@ -93,7 +92,7 @@ export const Chat: Component<{ self: Player | null, code: string }> = ({ self, c
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
         />
-        <Button size="icon">
+        <Button size="icon" onClick={handleSendMessage}>
           <Send />
         </Button>
       </div>
